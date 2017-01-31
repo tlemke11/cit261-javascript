@@ -1,0 +1,55 @@
+<html>
+<head>
+  <script>
+    //Begin ignoring separation of concerns - I know but this is sandbox code people!
+    
+    //Happy Path - Change Button Width
+    function changeButtonWidth(){
+    var button1 = document.getElementById('buttonPlease');
+    button1.style.width = 300;
+    }
+    
+    //Happy Path - Change DOM body bg color
+    function changeBackgroundColor(){
+    var body1 = document.body;
+    body1.style.background = "yellow";
+    }
+    
+    //Happy Path - Remove Attribute
+    function removeAttributeButton(){
+    var hiddenButton = document.getElementById('hiddenButton');
+    hiddenButton.removeAttribute("style");
+    }
+    
+    //Nasty Path - Change Button Width
+    function nastyChangeWidth(){
+    var button1 = document.getElementById('buttonPlease');
+    button1.style.width = "3000 px"; //cannot understand pixels
+    }
+    
+    //Happy Path - Change DOM body bg color
+    function nastyChangeBackground(){
+    var body1 = document.body;
+    body1.style.background = "56019"; //must prepend # or it won't work
+    }
+    //Happy Path - Remove Attribute
+    function nastyRemove(){
+    var hiddenButton = document.getElementById('hiddenButton2');
+    hiddenButton.removeAttribute(hidden); //cannot add quotes to identify attribute
+    }
+  </script>
+</head>
+  <body>
+    <div id="content">
+      <button type="button" onclick="changeBackgroundColor()">Change Background color</button>
+      <button type="button" id="buttonPlease" onclick="changeButtonWidth()">Change Button Width</button>
+      <button type="button" onclick="removeAttributeButton()">Remove Attribute to Unhide</button>
+      <button type="button" id="hiddenButton" onclick="" style="display:none">Hidden Button</button>
+      <br><br>
+      <button type="button" onclick="nastyChangeWidth()">Nasty Change Width</button>
+      <button type="button" onclick="nastyChangeBackground()">Change Background color</button>
+      <button type="button" onclick="nastyRemove()">Nasty Remove Attribute to Unhide</button>
+      <button type="button" id="hiddenButton2" onclick="" hidden>Hidden Button</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<html>
+<head>
+  <script>
+  //Happy Path - create and insertBefore
+  function addBefore(){
+    inputTag = document.createElement('input');
+    contentId = document.getElementById('content');//grab the element here first  
+    //then insert it as the child here
+    contentId.insertBefore(inputTag, contentId.firstChild);
+  }
+  
+  //Happy Path - appendChild
+  function addAfter(){  
+    inputTag = document.createElement('input');
+    contentId = document.getElementById('content');//grab the element here first 
+    //then insert it as the child here
+    contentId.appendChild(inputTag);
+  }
+  
+  //Happy Path - lastChild
+  function removeLast(){  
+    inputTag = document.createElement('input');
+    contentId = document.getElementById('content');//grab the element here first 
+    //then insert it as the child here
+    contentId.removeChild(contentId.lastChild);
+  }
+  
+  //Happy Path - childNodes
+  function removeFirst(){  
+    inputTag = document.createElement('input');
+    contentId = document.getElementById('content');//grab the element here first 
+    //then insert it as the child here
+    contentId.removeChild(contentId.childNodes[0]);
+  }
+  
+  //Nasty Path - create and insertBefore
+  function nastyAddBefore(){
+    inputTag = document.createElement(input); //must specify with quotes or it wont create the element
+    contentId = document.getElementById('content');//grab the element here first  
+    //then insert it as the child here
+    contentId.insertBefore(inputTag); //missing second parameter will throw an error, must specify where to remove before
+  }
+  
+  //Nasty Path - appendChild
+  function nastyAddAfter(){  
+    inputTag = document.createElement('input');
+    contentId = document.getElementById('content');//grab the element here first 
+    //then insert it as the child here
+    contentId.appendChild('input'); //must create the element, instead you just put text -- this won't work
+  }
+  
+  //Nasty Path - lastChild removeChild
+  function nastyRemoveLast(){  
+    inputTag = document.createElement('input');
+    contentId = document.getElementById('content');//grab the element here first 
+    //then insert it as the child here
+    contentId.lastChild.removeChild(); //you must specify what to remove in the remove child, we dont know which child to remove now
+  }
+  
+  //Nasty Path - removeChild
+  function nastyRemoveFirst(){  
+    inputTag = document.createElement('input');
+    contentId = document.getElementById('content');//grab the element here first 
+    //then insert it as the child here
+    contentId.removeChild(contentId.childNode); //missed child node and the index of the node
+  }
+  </script>
+</head>
+  <body>
+    <div id="content">
+      Duplicate Me:<input name="duplicate" type="text" value ="0"/>
+      <!--this button recreates the input field and injects it as the last child of the div tag -->
+    </div>
+    <button type="button" onclick="addBefore()">Add Input Before First Content Child Node</button>
+    <button type="button" onclick="addAfter()">Add Input to end of Content</button>
+    <button type="button" onclick="removeLast()">Remove last Child</button>
+    <button type="button" onclick="removeFirst()">Remove First Child</button>
+    <br><br>
+    <button type="button" onclick="nastyAddBefore()">Nasty Add Input Before First Content Child Node</button>
+    <button type="button" onclick="nastyAddAfter()">Nasty Add Input to end of Content</button>
+    <button type="button" onclick="nastyRemoveLast()">Nasty Remove last Child</button>
+    <button type="button" onclick="nastyRemoveFirst()">Nasty Remove First Child</button>
+    
+    
+  </body>
+</html>

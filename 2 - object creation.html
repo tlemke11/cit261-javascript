@@ -1,0 +1,107 @@
+<html>
+<head>
+  <script>
+    //Begin ignoring separation of concerns - I know but this is sandbox code people!
+    
+    //Happy Path - Object Instantiation -- see http://callmenick.com/post/instantiation-patterns-in-javascript for more examples
+    var TextObject = function() {
+    
+      var objectHere = {}; //this is where the object is instantiated in the function
+      
+      var text = "Here is some text." //some text that belongs to the object
+      var text2 = "Here is some more text."
+      var text3 = "You guessed it!"
+      
+      objectHere.display = function() { //Method
+        return text2;
+      };
+      
+      objectHere.display2 = function() {
+        return text3;
+      };
+      
+      objectHere.display3 = function() {
+        return text;
+      };
+      
+      objectHere.time = "14:00 hours"; //Property 
+      
+      return objectHere;
+    }
+    
+    //we need a way to call it. So we will use some buttons
+    
+    var myObject = TextObject();
+    
+    //Happy Path - Object being called
+    function changeToMessage1() {
+      document.getElementById('changeMe').innerHTML = myObject.display(); 
+    }
+    
+    //Nasty Path - This is the wrong way to call a Method from an Object
+    function changeToMessage2() {
+      document.getElementById('changeMe').innerHTML = myObject.display2; //this returns a function, not the text we wanted from it
+    }
+    
+    //Happy Path - Property being called
+    function changeToMessage3() {
+      document.getElementById('changeMe').innerHTML = myObject.time; 
+    }
+    
+    //Nasty Path - Property being called
+    function changeToMessage4() {
+      document.getElementById('changeMe').innerHTML = myObject.time(); //not a function
+    }
+    
+    
+    //INHERITANCE -- This is a good explanation on inheritance and prototyping - https://www.sitepoint.com/simple-inheritance-javascript/
+    //A better explanation is here - http://stackoverflow.com/questions/2064731/good-example-of-javascripts-prototype-based-inheritance
+    
+    var myObject2 = function() { //object instantiation again
+      this.title = "The Inheritable Object"  //here is another object property
+    }
+    
+    myObject2.prototype.displayTitle = function() {
+      return this.title;
+    };
+    
+    myObject3 = function() {
+      this.subtitle = "And the inheritated"
+    }
+    
+    myObject2.prototype.displaySub = function() {
+      return this.subtitle;};
+    
+    myObject3.prototype = new myObject2();
+    
+    //Happy Path - Inheritance and Object Creation
+    var object3 = new myObject3();
+    var object4 = Object.create(myObject3.prototype);
+    function changeToMessage5() {
+      document.getElementById('changeMe').innerHTML = object3.displaySub()+object4.displayTitle(); 
+    }
+    
+    //Nasty Path - Inheritance and Object Creation
+    function changeToMessage6() {
+      var object2 = Object.create(myObject3);//failed to call the prototype so it wont inherit
+      document.getElementById('changeMe').innerHTML = object2.displayTitle(); 
+    }
+    
+
+
+  </script>
+</head>
+  <body>
+    <div id="content">
+    <h1 id="changeMe">Here is the text that will change to show the object methods and properties working</h2>
+      <button type="button" id="message1" onclick="changeToMessage1()">Change To Message 1</button>
+      <button type="button" id="message2" onclick="changeToMessage2()">Nasty Path - Change To Message 2</button>
+      <button type="button" id="message3" onclick="changeToMessage3()">Change To Time</button>
+      <button type="button" id="message4" onclick="changeToMessage4()">Nasty Path - Change To Message 4</button>
+      <button type="button" id="message4" onclick="changeToMessage5()">Working Inheritance</button>
+      <button type="button" id="message4" onclick="changeToMessage6()">Nasty Path - Broken Inheritance</button>
+      <br><br>
+
+    </div>
+  </body>
+</html>
