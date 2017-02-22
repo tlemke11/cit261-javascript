@@ -64,6 +64,15 @@
     //then insert it as the child here
     contentId.removeChild(contentId.childNode); //missed child node and the index of the node
   }
+  
+  //Happy Path - text insertion
+  function textInsert(){  
+    inputTag = document.createElement('BUTTON');
+    contentId = document.getElementById('content');
+    contentValue = document.getElementById('textInsert').value;
+    inputTag.appendChild(document.createTextNode(contentValue));
+    contentId.appendChild(inputTag); 
+  }
   </script>
 </head>
   <body>
@@ -80,7 +89,8 @@
     <button type="button" onclick="nastyAddAfter()">Nasty Add Input to end of Content</button>
     <button type="button" onclick="nastyRemoveLast()">Nasty Remove last Child</button>
     <button type="button" onclick="nastyRemoveFirst()">Nasty Remove First Child</button>
-    
-    
+    <br><br>
+    Put text here:<input id='textInsert' name="textInsert" type="text" value =""/>
+    <button type="button" onclick="textInsert()">Click here to add button with text to the top </button>
   </body>
 </html>

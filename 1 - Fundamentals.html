@@ -7,31 +7,48 @@
   
       //For Loop - Happy Path - For Loop with integer
 
-      for (i = 0; i < 10; i++) {
-        console.log("Printing FOR loop output: " + i);
+      function loop(){
+        var txt = ''
+        for (i = 1; i < 6; i++) {
+          txt = txt + i;
+        }
+        document.getElementById('loop').innerHTML = txt;
       }
 
-      //For Loop - Nasty Path
+    //For Loop - Nasty Path - Doesn't inter loop because initial value too high
 
-    //  for (i = 0; i < 10;)
-    //  {
-    //    console.log("Printing for loop output: " + i); //this causes an infinite loop - un-comment to run
-    //  }
+      function loopNasty(){
+        var txt = ''
+        for (i = 6; i < 6; i++) {
+          txt = txt + i;
+        }
+        document.getElementById('loop').innerHTML = txt;
+      }
 
       //While loop - Happy Path - While loop with integer
 
-      var i = 0;
-      while(i < 10) {
-        console.log("Printing WHILE loop output: " + i);
-        i++;
+      function whileLoop(){
+        var i = 1;
+        var txt = ''
+        while(i < 11) {
+          var txt = txt + i;
+          i++;
+        }
+        document.getElementById('while').innerHTML = txt;
       }
 
-      //While loop - Nasty Path - While loop with integer
 
-    //  while(true)
-    //  {
-    //    console.log("This will print forever"); //un-comment to run
-    //  }
+    //While loop - Nasty Path - Never enters loos because doesn't evaluate as true
+
+      function whileNasty(){
+        var i = 11;
+        var txt = ''
+        while(i < 11) {
+          var txt = txt + i;
+          i++;
+        }
+        document.getElementById('while').innerHTML = txt;
+      }
   
 
   //END Sandboxing Loops
@@ -41,20 +58,22 @@
   //START Sandboxing Conditionals
   
       //IF conditional - Happy Path
+      function truthy(){
+        var truefully = true;
 
-      var truefully = true;
-
-      if(truefully){
-          console.log("This is a conditional that is running");
+        if(truefully){
+            document.getElementById('conditional').innerHTML = "truthy";
+        }
       }
-
       //IF conditional - Nasty Path
+      function ifNasty(){
+       var hello = 5;
 
-      var hello = 5;
-
-      if(hello = 6){
-          console.log("This is a conditional that is bad as we used the wrong operator and set hello to 6");
+        if(hello = 6){
+            document.getElementById('conditional').innerHTML = "This is a conditional that is bad as we used the wrong operator and set hello to 6";
+        }
       }
+ 
   
   //END Sandboxing Conditionals
 
@@ -64,17 +83,16 @@
   
       //Functions with Parameters- Happy Path
 
-      num1 = 5;
-      num2 = 10;
-
       function add (num1, num2){
-          console.log("Adding " + num1 + " to " + num2 + " and I get :" + (num1 + num2));
+          var num0 = (num1 + num2);
+          document.getElementById('functional').innerHTML = num0;
       }
 
       //Functions with Parameters- Nasty Path
 
-      function add (num3, num4){
-          console.log("Adding " + num3 + " to " + num4 + " and I get :" + num3 + num4); // you forgot to declare your variables so no parameters were passed in
+      function addNasty(num3, num4){
+          var num0 = num3 + num4;
+          document.getElementById('functional').innerHTML = "no variables"; // no variables passed son!
       }
   
   //END Sandboxing Functions and Parameters
@@ -83,16 +101,17 @@
   //START Sandboxing Arrays
   
       //Array - Happy Path
-
-      var house = []; // you can define an array like so
-      house.push("Mansion"); //and then you can use them similarly to vectors
-      console.log("Array here... It has: " + house); //get first indexed item
-
+      function arrayFun(){
+        var house = []; // you can define an array like so
+        house.push("Mansion"); //and then you can use them similarly to vectors
+        document.getElementById('arrays').innerHTML = "Array here... It has: " + house[0]; //get first indexed item
+      }
       //Array - Nasty Path
-
-      var house2 = []; // you can define an array like so
-      //house2["house1"] = Mansion; //but you cannot use key Value indexes like you can with Objects
-      console.log("Array here... It has: " + house2); //nothing will display here.
+      function arrayNasty(){
+        var house2 = []; // you can define an array like so
+        house2["house1"] = "Mansion"; //but you cannot use key Value indexes like you can with Objects - if you do it converts this to a object and indexes no longer work
+        document.getElementById('arrays').innerHTML = "Array here... It has: " + house2[0]; //nothing will display here.
+      }
   
   //END Sandboxing Arrays
   
@@ -100,30 +119,45 @@
   //START Sandboxing Associative Arrays
   
   //Associative Arrays - Happy Path
-
-  var sport  = {}; // an associative array does not exist in javascript, associative arrays are objects
-
-  sport.name = "Football"; // you can add properties in a few different ways
-  sport["ballType"] = "football ball";
-
-  console.log("Tell me about the sport. It's name is " + sport.name + " and it uses a " + sport.ballType);
+      function arrayAssociate(){
+        var sport  = {}; // an associative array does not exist in javascript, associative arrays are objects
+        sport.name = "Football"; // you can add properties in a few different ways
+        sport["ballType"] = "football ball";
+        document.getElementById('arrays2').innerHTML = "Tell me about the sport. It's name is " + sport.name + " and it uses a " + sport.ballType;
+      }
 
   //Associative Arrays - Nasty Path
-
-  var sport  = {}; // an associative array does not exist in javascript, associative arrays are objects
-
-  sport.name = "Football"; // you can add properties in a few different ways
-  sport["ballType"] = "football ball";
-
-  console.log("Tell me about the sport. It's name is " + sport[0] + " and it uses a " + sport[1]); //you cannot use indexes on objects like you can with arrays
-
-
+      function arrayAssociateNasty(){
+        var sport  = {}; 
+        sport.name = "Football";
+        sport["ballType"] = "football ball";
+        document.getElementById('arrays2').innerHTML = "Tell me about the sport. It's name is " + sport[0] + " and it uses a " + sport[1]; //you cannot access index values of objects, since they are not standard arrays
+      }
   //END Sandboxing Associative Arrays
-  
-  
   </script>
 <body>
   <h1>Loops, Conditional Statements, Functions, Variables, Parameters, Arrays, Associative Arrays</h1>
-  <h1>Sandbox Code - Please view the console for output</h1>
+  <h2>Loops</h2>
+  <p id='loop'>For Loop 5 items.</p>
+  <button onclick="loop()">For Loop</button>
+  <button onclick="loopNasty()">For Loop Nasty Path</button>
+  <p id='while'>While Loop 10 items.</p>
+  <button onclick="whileLoop()">While Loop</button>
+  <button onclick="whileNasty()">While Loop Nasty Path</button>
+  <h2>Conditionals</h2>
+  <p id='conditional'>This is conditional<p>
+  <button onclick="truthy()">Truthy</button>
+  <button onclick="ifNasty()">If Nasty Path</button>
+  <h2>Functions</h2>
+  <p id='functional'>Add me some numbers<p>
+  <button onclick="add(5,10)">Truthy</button>
+  <button onclick="addNasty()">If Nasty Path</button>
+  <h2>Arrays</h2>
+  <p id='arrays'>Array<p>
+  <button onclick="arrayFun()">Truthy</button>
+  <button onclick="arrayNasty()">If Nasty Path</button>
+  <p id='arrays2'>Associative Array<p>
+  <button onclick="arrayAssociate()">Truthy</button>
+  <button onclick="arrayAssociateNasty()">If Nasty Path</button>
 </body>
 </html>

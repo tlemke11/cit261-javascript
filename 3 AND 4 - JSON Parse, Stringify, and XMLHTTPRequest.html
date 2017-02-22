@@ -1,0 +1,72 @@
+<html>
+<head>
+<script>
+
+function getJoke(){
+//NASTY PATH - XMLHTTPRequest - Syncronous Javascript on Main Thread
+var URL = "http://api.icndb.com/jokes/random?limitTo=[nerdy]"
+var newRequest = new XMLHttpRequest();
+newRequest.open("GET", URL, false);
+
+document.getElementById('joke').innerHTML = newRequest;
+//Nasty Path JSONPARSE
+document.getElementById('yaobject').innerHTML = JSON.parse(newRequest);//already an object man!
+}
+
+function getBadString(text){
+//Nasty Path Stringify
+document.getElementById('yastring').innerHTML = JSON.stringify(text);//double stringify
+}
+
+//HAPPY PATH - XMLHTTPRequest - Asyncronyous Javascript
+var newRequest2 = new XMLHttpRequest();
+newRequest2.onreadystatechange = function() {
+    if(this.readyState == 4 && this.status == 200){
+    document.getElementById('joke2').innerHTML = this.responseText;
+    //HAPPY PATH STRINGIFY
+    document.getElementById('joke3').innerHTML = JSON.stringify(this.responseText);//string em up
+    //HAPPY PATH JSON PARSE
+    document.getElementById('joke4').innerHTML = JSON.parse(JSON.stringify(this.responseText)); //object to string to object again!
+    getBadString(JSON.stringify(this.responseText));
+    }
+ }
+
+function getJoke2(){
+var URL = "http://api.icndb.com/jokes/random?limitTo=[nerdy]"
+//open the asychronyous connection and send
+newRequest2.open("GET", URL, true);
+newRequest2.send();
+}
+
+
+
+</script>
+</head>
+
+<body>
+
+<div>
+<p id="joke">Syncronous error here</p>
+<p id="yaobject">Cannot Convert Object to Object here</p>
+</div>
+<button type="button" onclick="getJoke()">Get my Nerdy Chuck Norris Joke - Nasty Path Stringify, XHR</button>
+
+
+<div>
+<p id="joke2">A new joke will go here unconverted</p>
+</div>
+<div>
+<p id="joke3">A new joke will go here stringified</p>
+</div>
+<div>
+<p id="joke4">A new joke will go here json parsed</p>
+</div>
+<div>
+<p id="yastring">Double Stringified Value</p>
+</div>
+<button type="button" onclick="getJoke2()">Get my Nerdy Chuck Norris Joke - Happy Path - Stringify, Parse, XHR</button>
+
+</body>
+
+</html>
+

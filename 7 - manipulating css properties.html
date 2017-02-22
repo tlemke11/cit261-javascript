@@ -1,5 +1,13 @@
 <html>
 <head>
+
+  <style>
+  .classy{
+  color: pink;
+  font-style: underline;
+  }
+  
+  </style>
   <script>
     //Begin ignoring separation of concerns - I know but this is sandbox code people!
     
@@ -37,6 +45,26 @@
     var hiddenButton = document.getElementById('hiddenButton2');
     hiddenButton.removeAttribute(hidden); //cannot add quotes to identify attribute
     }
+    
+    //Happy Path - Add class Attribute
+    function classAdd(){
+    document.getElementById('classified').className += "classy";
+    }
+    
+    //Happy Path - remove class Attribute
+    function classRemove(){
+    document.getElementById('classified').className = ""; //removes all classes
+    }
+    
+    //Nasty Path - Add class Attribute
+    function classAddNasty(){
+    document.getElementById('classified').class += "classy"; //must say className
+    }
+    
+    //Happy Path - remove class Attribute
+    function classRemoveNasty(){
+    document.getElementById('classified').className.remove; //doesn't work
+    }
   </script>
 </head>
   <body>
@@ -50,6 +78,12 @@
       <button type="button" onclick="nastyChangeBackground()">Change Background color</button>
       <button type="button" onclick="nastyRemove()">Nasty Remove Attribute to Unhide</button>
       <button type="button" id="hiddenButton2" onclick="" hidden>Hidden Button</button>
+      <br><br>
+      <p id='classified'>Add and remove class style from this</p>
+      <button type="button" onclick="classAdd()" >Add Class</button>
+      <button type="button" onclick="classRemove()" >Remove all classes</button>
+      <button type="button" onclick="classAddNasty()" >Add Class</button>
+      <button type="button" onclick="classRemoveNasty()" >Remove all classes</button>
     </div>
   </body>
 </html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+<style>
+/*Spiral Happy PATH - Transition Background to Black*/
+.spiral {
+animation-name: spiral;
+animation-duration: 5s;
+animation-iteration-count: infinite;
+animation-play-state: running;
+}
+/*Spiral NASTY PATH - call animation without keyframes*/
+.spiralNastyPath {
+animation-name: spinny;
+animation-duration: 5s;
+animation-iteration-count: infinite;
+animation-play-state: running;
+color:red;
+}
+
+@keyframes spiral{
+from {transform:rotateX(70deg)}
+to {transform:rotateX(720deg)}
+}
+
+/*Transition Happy PATH - Transition Background to Black*/
+.transition {
+transition-property: background;
+transition-duration: 3s;
+background: black;
+}
+/*Transition NASTY PATH - Cannot transition margin to blue color*/
+.transitionNastyPath{ 
+transition-property: margin;
+transition-duration: 3s;
+color: blue;
+}
+</style>
+
+<script>
+function transition(){
+document.getElementById("transition").className = "transition";
+}
+
+function transitionNastyPath(){
+document.getElementById("transition").className = "transitionNastyPath";
+}
+
+function spiral(){
+document.getElementById("spiral").className = "spiral";
+}
+
+function spiralNastyPath(){
+document.getElementById("spiral").className = "spiralNastyPath";
+}
+</script>
+</head>
+<p id="spiral">Spiraly</p>
+<button onclick="spiral()">Spiral - Happy Path</button>
+<button onclick="spiralNastyPath()">Spiral - Nasty Path</button>
+<p id="transition">Transition Me</p>
+<button onclick="transition()">Transition - Happy Path</button>
+<button onclick="transitionNastyPath()">Transition - Nasty Path</button>
+</html>
