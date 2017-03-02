@@ -1,0 +1,131 @@
+<html>
+  <head>
+  <script>
+
+  //HAPPY PATH - Local Storage Save
+  function s1(){
+    //remove it all first
+    var text = localStorage.removeItem("text");
+    
+    var arrayInput = localStorage.removeItem("arrayInput");
+    
+    var associativeArray = localStorage.removeItem("associativeArray");
+    
+    var iObject = localStorage.removeItem("iObject");
+  
+  
+    var text = document.getElementById('textInput').value;
+    
+    var arrayInput = [document.getElementById('arrayInput0').value, document.getElementById('arrayInput1').value, document.getElementById('arrayInput2').value];
+    
+    var associativeArray = { };
+
+    assocValue = document.getElementById('assocValue').value;
+
+    associativeArray = {name : assocValue};
+    
+    var iObject = { };
+    
+    iObject.name = document.getElementById('objectName').value;
+    iObject.description = " I am a humble object, commonly confused with devices named after a popular fruit.";
+    iObject.homeTown = " There is no place like 127.0.0.1.";
+   
+
+    //https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+    //http://stackoverflow.com/questions/23728626/localstorage-and-json-stringify-json-parse
+    
+    localStorage.setItem("text", text);
+    localStorage.setItem("arrayInput", JSON.stringify(arrayInput));
+    localStorage.setItem("associativeArray", JSON.stringify(associativeArray));
+    localStorage.setItem("iObject", JSON.stringify(iObject));
+  }
+
+  //NASTY PATH - Local Storage Save
+  function s2(){
+    //forgot to remove it all firsts so this will not work the second time around
+    var text = document.getElementById('textInput').value;
+
+    var arrayInput = [document.getElementById('arrayInput0').value, document.getElementById('arrayInput1').value, document.getElementById('arrayInput2').value];
+
+    var associativeArray = { };
+
+    assocValue = document.getElementById('assocValue').value;
+
+    associativeArray = {name : assocValue};
+
+    var iObject = { };
+
+    iObject.name = document.getElementById('objectName').value;
+    iObject.description = " I am a humble object, commonly confused with devices named after a popular fruit.";
+    iObject.homeTown = " There is no place like 127.0.0.1.";
+
+
+    //https://developer.mozilla.org/en-US/docs/Web/API/Storage/setItem
+    //http://stackoverflow.com/questions/23728626/localstorage-and-json-stringify-json-parse
+
+    localStorage.setItem("text", text);
+    localStorage.setItem("arrayInput", JSON.stringify(arrayInput));
+    localStorage.setItem("associativeArray", JSON.stringify(associativeArray));
+    localStorage.setItem("iObject", JSON.stringify(iObject));
+  }
+  
+  //HAPPY PATH - Local Storage Retrieve
+  function g1(){
+    var text = localStorage.getItem("text");
+    
+    var arrayInput = JSON.parse(localStorage.getItem("arrayInput"));
+    
+    var associativeArray = JSON.parse(localStorage.getItem("associativeArray"));
+    
+    var iObject = JSON.parse(localStorage.getItem("iObject"));
+    
+    document.getElementById('simple').innerHTML = text;
+    
+    document.getElementById('array').innerHTML = arrayInput;
+    
+    document.getElementById('assoc').innerHTML = associativeArray.name;
+    
+    document.getElementById('object').innerHTML = iObject.name + iObject.description + iObject.homeTown;
+  }
+
+  //Nasty PATH - Local Storage Retrieve
+  function g2(){
+    var text = localStorage.getItem("text");
+    //Forget to JSON.parse the objects
+    var arrayInput = localStorage.getItem("arrayInput");
+    var associativeArray = localStorage.getItem("associativeArray");
+    var iObject = localStorage.getItem("iObject");
+
+    document.getElementById('simple').innerHTML = text;
+
+    document.getElementById('array').innerHTML = arrayInput;
+
+    document.getElementById('assoc').innerHTML = associativeArray.name;
+
+    document.getElementById('object').innerHTML = iObject.name + iObject.description + iObject.homeTown;
+  }
+  
+  </script>
+  </head>
+  <body>
+    Simple String Save:<input id="textInput" type='text'/><br>
+    Save Array 0:<input id="arrayInput0" type='text'/>1:<input id="arrayInput1" type='text'/>2:<input id="arrayInput2" type= 'text'/><br>
+    Save Associative Array Value: <input id="assocValue" type='text'/><br>
+    Object Name: <input id="objectName" type='text'/><br>
+    <button id='save' onclick="s1()">Save to Local Storage - Happy Path</button>
+    <br>
+    <button id='save2' onclick="s2()">Save to Local Storage - Nasty Path</button>
+    <br><br>
+    
+    <h2>Simple Text Will Display Here</h2>
+    <p id="simple"></p>
+    <h2>Array Will Display Here</h2>
+    <p id="array"></p>
+    <h2>Associative Array Will Display Here</h2>
+    <p id="assoc"></p>
+    <h2>Object Will Display Here</h2>
+    <p id="object"></p>
+    <button onclick="g1()">Get From Storage - Happy Path</button><br>
+    <button onclick="g2()">Get From Storage - Nasty Path</button>
+  </body>
+</html>

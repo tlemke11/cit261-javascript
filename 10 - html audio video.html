@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <style>
+      #drawing {
+        transition-property: background-color;
+        transition-duration: 3s;
+        background-color: pink;
+      }
+      #drawing:hover{
+        background-color:blue;
+      }
+    </style>
+  </head>
+  <body>
+  <!-- happy path video -->
+    <video width="240px" height="160px" controls>
+      <source src="big-buck-bunny_trailer.webm">
+    </video><br>
+  <p>Video Happy Path Above</p>
+  <p>Video Blender Foundation | www.blender.org</p>
+  <!-- nasty path video - no controls-->
+    <video width="240px" height="160px">
+      <source src="big-buck-bunny_trailer.webm">
+    </video><br>
+  <p>Video Nasty Path Above</p>
+    <p> Video Blender Foundation | www.blender.org</p>
+  <!-- happy path audio -->
+  <audio controls>
+    <source src="public_domain.mp3">
+  </audio><br>
+  <p>Audio Happy Path Above</p>
+  <!-- nasty path audio - forgot source -->
+  <audio controls>
+  </audio><br>
+  <p>Audio Nasty Path Above</p>
+  <!-- happy path canvas -->
+  <canvas id="drawing" width="100px" height="100px">
+  </canvas><br>
+  <p>Canvas Happy Path Above</p>
+  <!-- nasty path canvas  - no id inserted-->
+  <canvas width="100px" height="100px">
+  </canvas><br>
+  <p>Canvas Nasty Path Above</p>
+  </body>
+</html>

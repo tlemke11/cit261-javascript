@@ -1,58 +1,83 @@
 <html>
 <head>
-<style>
-/*Spiral Happy PATH - Transition Background to Black*/
-.spiral {
-animation-name: spiral;
-animation-duration: 5s;
-animation-iteration-count: infinite;
-animation-play-state: running;
-}
-/*Spiral NASTY PATH - call animation without keyframes*/
-.spiralNastyPath {
-animation-name: spinny;
-animation-duration: 5s;
-animation-iteration-count: infinite;
-animation-play-state: running;
-color:red;
-}
+    <style>
+        /*Spiral Happy PATH - Transition Background to Black*/
+        .spiral {
+            animation-name: spiral;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            animation-play-state: running;
+        }
 
-@keyframes spiral{
-from {transform:rotateX(70deg)}
-to {transform:rotateX(720deg)}
-}
+        /*Spiral NASTY PATH - call animation without keyframes*/
+        .spiralNastyPath {
+            animation-name: spinny;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            animation-play-state: running;
+            color: red;
+        }
 
-/*Transition Happy PATH - Transition Background to Black*/
-.transition {
-transition-property: background;
-transition-duration: 3s;
-background: black;
-}
-/*Transition NASTY PATH - Cannot transition margin to blue color*/
-.transitionNastyPath{ 
-transition-property: margin;
-transition-duration: 3s;
-color: blue;
-}
-</style>
+        @keyframes spiral {
+            from {
+                transform: rotateX(70deg)
+            }
+            to {
+                transform: rotateX(720deg)
+            }
+        }
 
-<script>
-function transition(){
-document.getElementById("transition").className = "transition";
-}
+        /*Transition Happy PATH - Transition Background to Black*/
+        .transition {
+            transition-property: background;
+            transition-duration: 3s;
+            background: black;
+        }
 
-function transitionNastyPath(){
-document.getElementById("transition").className = "transitionNastyPath";
-}
+        /*Transition NASTY PATH - Cannot transition margin to blue color*/
+        .transitionNastyPath {
+            transition-property: margin;
+            transition-duration: 3s;
+            color: blue;
+        }
 
-function spiral(){
-document.getElementById("spiral").className = "spiral";
-}
+        .insertTransition {
+            transition-property: background;
+            transition-duration: 3s;
+            background: blue;
+        }
 
-function spiralNastyPath(){
-document.getElementById("spiral").className = "spiralNastyPath";
-}
-</script>
+        .insertTransition:hover {
+            background: red;
+        }
+    </style>
+
+    <script>
+        function transition() {
+            document.getElementById("transition").className = "transition";
+        }
+
+        function transitionNastyPath() {
+            document.getElementById("transition").className = "transitionNastyPath";
+        }
+
+        function spiral() {
+            document.getElementById("spiral").className = "spiral";
+        }
+
+        function spiralNastyPath() {
+            document.getElementById("spiral").className = "spiralNastyPath";
+        }
+
+        function insertTransitionItem() {
+            inputTag = document.createElement('div');
+            inputTag.className = "insertTransition";
+            inputTag.style.width = "100px";
+            inputTag.style.height = "100px";
+            contentId = document.getElementById('tranButton');
+            document.body.appendChild(inputTag);
+        }
+    </script>
 </head>
 <p id="spiral">Spiraly</p>
 <button onclick="spiral()">Spiral - Happy Path</button>
@@ -60,4 +85,7 @@ document.getElementById("spiral").className = "spiralNastyPath";
 <p id="transition">Transition Me</p>
 <button onclick="transition()">Transition - Happy Path</button>
 <button onclick="transitionNastyPath()">Transition - Nasty Path</button>
+<br>
+<button onclick="insertTransitionItem()">Transition with DOM</button>
+<div id="tranButton"></div>
 </html>

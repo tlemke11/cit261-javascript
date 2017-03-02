@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <style>
+      /*Spiral Happy PATH - Transition Background to Black*/
+      .spiral {
+        animation-name: spiral;
+        animation-duration: 5s;
+        animation-iteration-count: 1;
+        animation-play-state: running;
+      }
+      @keyframes spiral{
+        from {transform:rotateX(70deg)}
+        to {transform:rotateX(720deg)}
+      }
+      .transition {
+        transition-property: width;
+        transition-duration: 1s;
+        background-color: pink;
+      }
+
+      .transition:hover{
+        width:100px;
+      }
+    </style>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', runDemListeners, false);
+
+      function runDemListeners(){
+        //Happy Path Events
+        //Touch
+        var save1 = document.getElementById("save1");
+        save1.addEventListener("touchstart",alerted, false);
+        save1.addEventListener("touchend", alertedEnd, false);
+        //Change
+        var save2 = document.getElementById("save2");
+        save2.addEventListener("change",alerted2);
+        //Click
+        var save3 = document.getElementById("save3");
+        save3.addEventListener("click",alerted3);
+        //Transition
+        var wider = document.getElementById("wider");
+        wider.addEventListener("transitionrun",wider);
+        wider.addEventListener("transitionend",donothing);
+        //Animation
+        var spiral = document.getElementById("spiral");
+        spiral.addEventListener("animationstart",alerted4);
+        spiral.addEventListener("animationend",donothing);
+
+        //NASTY PATH EVENTS
+        //Touch
+        var save4 = document.getElementById("save4");
+        save4.addEventListener("touchstart",alerted, false); //Forgot end event so won't change text back
+        //Change
+        var save5 = document.getElementById("save5");
+        save5.addEventListener("change",alerted2);   //wont work on a button
+        //Click
+        var save6 = document.getElementById("save6");
+        save6.addEventListener("click",alerted3);   //cant think of one here
+        //Transition
+        var widernp = document.getElementById("widernp");
+        widernp.addEventListener("transitionend",widerNasty); ///Can't think of nasy path here
+        //Animation
+        var spiralnp = document.getElementById("spiral");
+        spiralnp.addEventListener("animationstart",spiralNasty); //Forgot end event so won't change text back
+      };
+
+
+      function alerted(){
+        document.getElementById("save1").innerHTML = "you touched the button";
+      }
+
+      function alertedEnd(){
+        alert("you stopped touching the button");
+        document.getElementById("save1").innerHTML = "TouchStart - Happy Path";
+      }
+
+      function alerted2(){
+        alert("you changed the checkbox");
+      }
+
+
+      function alerted3(){
+        alert("you clicked the button");
+      }
+
+      function alerted4(){
+        alert("you started animating");
+      }
+
+      function wider(){
+        alert("you made it narrower");
+      }
+      function donothing(){
+
+      }
+
+      function spiralNasty(){
+        document.getElementById("spiralnp").innerHTML = "broken";
+      }
+
+      function widerNasty(){
+        document.getElementById("widernp").innerHTML = "broken";
+      }
+
+
+    </script>
+  </head>
+  <body>
+    <button id='save1'>TouchStart - Happy Path</button>
+    <br>
+    <input type="checkbox" id='save2'/>Change Event - Happy Path
+    <br>
+    <button id='save3'>Click - Happy Path</button>
+    <br>
+    <button id='save4'>TouchStart - Nasty Path</button>
+    <br>
+    <button id='save5'>Change Event - Nasty Path</button>
+    <br>
+    <h1 id='save6'>Click - Nasty Path</h1>
+    <br><br>
+  <div id="wider" class="transition">Transition - happy path</div><br><br>
+    <div id="spiral" style="width:50px; height:50px; background:#c0c0c0;" class="spiral">Spiral - happy path</div>
+
+    <div id="widernp" class="transition">Transition - nasty path</div><br><br>
+    <div id="spiralnp" style="width:50px; height:50px; background:#c0c0c0;" class="spiral">Spiral - nasty path</div>
+
+  </body>
+
+
+</html>
